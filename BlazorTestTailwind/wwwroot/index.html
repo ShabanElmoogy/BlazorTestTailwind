@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GlobalApp</title>
+    <base href="/" />
+    <link rel="preload" id="webassembly" />
+    <meta name="theme-color" content="#3b82f6" />
+    <link rel="stylesheet" href="css/tailwind.css" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link href="BlazorTestTailwind.styles.css" rel="stylesheet" />
+    <link href="manifest.webmanifest" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+    <script type="importmap"></script>
+
+    <style>
+        #blazor-error-ui {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #ffffdd;
+            color: #000;
+            padding: 0.6rem 1.25rem;
+            box-shadow: 0 0 1rem rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+
+            #blazor-error-ui .dismiss {
+                position: absolute;
+                right: 0.75rem;
+                top: 0.5rem;
+                cursor: pointer;
+            }
+
+            #blazor-error-ui .reload {
+                text-decoration: underline;
+            }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900/20">
+            <div class="text-center">
+                <div class="w-16 h-16 border-4 border-blue-200 border-t-blue-600 rounded-full animate-spin mx-auto mb-4"></div>
+                <h2 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">GlobalApp</h2>
+                <p class="text-gray-600 dark:text-gray-400">Loading your experience...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+
+    <!-- 👇 add this script element instead. -->
+    <script src="_content/Toolbelt.Blazor.PWA.Updater.Service/script.min.js"></script>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+
+    <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+    <script>
+        // Initialize theme with error handling
+        try {
+            if (localStorage.getItem('theme') === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        } catch (e) {
+            console.warn('localStorage not available for theme');
+        }
+
+        // Initialize direction with error handling
+        try {
+            if (localStorage.getItem('direction') === 'rtl') {
+                document.documentElement.dir = 'rtl';
+            } else {
+                document.documentElement.dir = 'ltr';
+            }
+        } catch (e) {
+            console.warn('localStorage not available for direction');
+            document.documentElement.dir = 'ltr';
+        }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var el = document.getElementById('blazor-error-ui');
+            if (!el) return;
+            var reload = el.querySelector('.reload');
+            var dismiss = el.querySelector('.dismiss');
+            if (reload) reload.addEventListener('click', function (e) { e.preventDefault(); location.reload(); });
+            if (dismiss) dismiss.addEventListener('click', function () { el.style.display = 'none'; });
+        });
+    </script>
+</body>
+
+</html>

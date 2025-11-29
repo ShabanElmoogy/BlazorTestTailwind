@@ -1,0 +1,40 @@
+﻿@inherits LayoutComponentBase
+
+<PWAUpdater />
+
+<div class="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-900 dark:via-gray-800 dark:to-purple-900/20" @onclick="OnRootClick">
+    <!-- Header -->
+    <BlazorTestTailwind.Layout.Header @ref="headerRef" OnSidebarToggle="ToggleSidebar" />
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <div class="hidden lg:block">
+            <BlazorTestTailwind.Layout.Sidebar IsCollapsed="SidebarCollapsed" OnCollapseToggle="OnSidebarCollapseToggle" />
+        </div>
+
+        <!-- Main Content -->
+        <main class="flex-1 w-0 p-8 transition-all duration-500 min-h-screen">
+            @Body
+        </main>
+    </div>
+</div>
+
+@code {
+    private bool SidebarCollapsed { get; set; } = false;
+    private BlazorTestTailwind.Layout.Header? headerRef;
+
+    private void ToggleSidebar()
+    {
+        SidebarCollapsed = !SidebarCollapsed;
+    }
+
+    private void OnSidebarCollapseToggle(bool collapsed)
+    {
+        SidebarCollapsed = collapsed;
+    }
+
+    private void OnRootClick()
+    {
+        headerRef?.CloseProfile();
+    }
+}

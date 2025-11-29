@@ -1,0 +1,14 @@
+@if (IsCollapsed)
+{
+    <div class="fixed bottom-6 left-6 z-40">
+        <button class="flex h-14 w-14 transform items-center justify-center rounded-2xl bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-2xl transition-all duration-300 hover:shadow-3xl hover:scale-110">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+        </button>
+    </div>
+}
+
+@code {
+    [Parameter] public bool IsCollapsed { get; set; }
+}

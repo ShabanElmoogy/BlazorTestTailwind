@@ -1,0 +1,19 @@
+﻿<div class="flex items-center gap-4">
+    <button @onclick="OnSidebarToggle" class="transform rounded-xl p-2 transition-all duration-300 hover:scale-110 hover:bg-white/20 lg:hidden">
+        <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+    <div class="flex items-center gap-3">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/20 backdrop-blur-sm">
+            <svg class="h-6 w-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+        </div>
+        <h1 class="cursor-pointer text-2xl font-bold tracking-tight text-white">GlobalApp</h1>
+    </div>
+</div>
+
+@code {
+    [Parameter] public EventCallback OnSidebarToggle { get; set; }
+}

@@ -1,0 +1,28 @@
+﻿<button @onclick="ToggleDirection" class="transform rounded-xl p-2 transition-all duration-300 hover:scale-110 hover:bg-white/20" title="Toggle direction">
+    @if (ThemeService.IsRtl)
+    {
+        <svg class="h-6 w-6 cursor-pointer text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+        </svg>
+    }
+    else
+    {
+        <svg class="h-6 w-6 cursor-pointer text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+        </svg>
+    }
+</button>
+
+@using BlazorTestTailwind.Services
+@inject ThemeService ThemeService
+
+@code {
+    private async Task ToggleDirection()
+    {
+        try
+        {
+            await ThemeService.ToggleDirectionAsync();
+        }
+        catch { }
+    }
+}

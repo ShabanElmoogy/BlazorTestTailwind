@@ -1,0 +1,11 @@
+{
+  "name": "blazor-tailwind",
+  "version": "1.0.0",
+  "scripts": {
+    "build:css": "tailwindcss -i ./Styles/input.css -o ./wwwroot/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./Styles/input.css -o ./wwwroot/css/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.0-alpha.30"
+  }
+}

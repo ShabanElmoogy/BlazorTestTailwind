@@ -1,0 +1,500 @@
+﻿@page "/settings"
+
+<PageTitle>Settings</PageTitle>
+
+<div class="animate-in fade-in space-y-8 duration-700">
+    <!-- Settings Header -->
+    <div class="rounded-3xl border border-gray-200/50 bg-gradient-to-br from-blue-50 via-white to-purple-50 p-8 shadow-xl dark:border-gray-700/50 dark:from-gray-800 dark:via-gray-900 dark:to-purple-900/20">
+        <div class="flex items-center space-x-6">
+            <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-400 via-purple-500 to-indigo-600 shadow-2xl">
+                <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+            </div>
+            <div>
+                <h1 class="mb-2 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-3xl font-bold text-transparent">Settings</h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300">Manage your account preferences and application settings</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Tabs -->
+    <div class="overflow-hidden rounded-3xl border border-gray-200/50 bg-white/80 shadow-xl backdrop-blur-xl dark:border-gray-700/50 dark:bg-gray-800/80">
+        <div class="border-b border-gray-200 dark:border-gray-700">
+            <nav class="flex">
+                <button @onclick="@(() => SetActiveTab("general"))" class="@GetTabClass("general")">
+                    <svg class="mx-auto mb-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    General
+                </button>
+                <button @onclick="@(() => SetActiveTab("account"))" class="@GetTabClass("account")">
+                    <svg class="mx-auto mb-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    Account
+                </button>
+                <button @onclick="@(() => SetActiveTab("notifications"))" class="@GetTabClass("notifications")">
+                    <svg class="mx-auto mb-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM10.07 2.82l3.93 3.93M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4l3 3h7a2 2 0 012 2v9a2 2 0 01-2 2h-5.93z"></path>
+                    </svg>
+                    Notifications
+                </button>
+                <button @onclick="@(() => SetActiveTab("security"))" class="@GetTabClass("security")">
+                    <svg class="mx-auto mb-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    Security
+                </button>
+                <button @onclick="@(() => SetActiveTab("appearance"))" class="@GetTabClass("appearance")">
+                    <svg class="mx-auto mb-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                    </svg>
+                    Appearance
+                </button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="p-8">
+            @if (activeTab == "general")
+            {
+                <!-- General Settings -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">General Settings</h3>
+
+                        <!-- Language -->
+                        <div class="mb-6">
+                            <label class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">Language</label>
+                            <select class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 md:w-80 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                <option value="en">English (US)</option>
+                                <option value="es">Español</option>
+                                <option value="fr">Français</option>
+                                <option value="de">Deutsch</option>
+                                <option value="it">Italiano</option>
+                            </select>
+                        </div>
+
+                        <!-- Timezone -->
+                        <div class="mb-6">
+                            <label class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">Timezone</label>
+                            <select class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 md:w-80 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                <option value="utc">UTC (Coordinated Universal Time)</option>
+                                <option value="est">Eastern Time (EST)</option>
+                                <option value="pst">Pacific Time (PST)</option>
+                                <option value="cet">Central European Time (CET)</option>
+                                <option value="jst">Japan Standard Time (JST)</option>
+                            </select>
+                        </div>
+
+                        <!-- Date Format -->
+                        <div class="mb-6">
+                            <label class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">Date Format</label>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="dateFormat" value="mdy" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-2 text-gray-700 dark:text-gray-300">MM/DD/YYYY</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="dateFormat" value="dmy" class="text-blue-600 focus:ring-blue-500" checked>
+                                    <span class="ml-2 text-gray-700 dark:text-gray-300">DD/MM/YYYY</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="dateFormat" value="ymd" class="text-blue-600 focus:ring-blue-500">
+                                    <span class="ml-2 text-gray-700 dark:text-gray-300">YYYY-MM-DD</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Auto-save -->
+                        <div class="flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">Auto-save</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Automatically save your work as you type</p>
+                            </div>
+                            <label class="relative inline-flex cursor-pointer items-center">
+                                <input type="checkbox" class="peer sr-only" checked>
+                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (activeTab == "account")
+            {
+                <!-- Account Settings -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Account Settings</h3>
+
+                        <!-- Profile Information -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Profile Information</h4>
+                            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">First Name</label>
+                                    <input type="text" value="John" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Last Name</label>
+                                    <input type="text" value="Doe" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+                                    <input type="email" value="johndoe@example.com" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
+                                    <input type="tel" value="+1 (555) 123-4567" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Change Password -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Change Password</h4>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Current Password</label>
+                                    <input type="password" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">New Password</label>
+                                    <input type="password" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                </div>
+                                <div>
+                                    <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Confirm New Password</label>
+                                    <input type="password" class="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Actions -->
+                        <div class="space-y-4">
+                            <button class="w-full rounded-xl bg-blue-600 px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-blue-700 md:w-auto">
+                                Save Changes
+                            </button>
+                            <button class="w-full rounded-xl bg-red-600 px-6 py-3 font-medium text-white transition-colors duration-200 hover:bg-red-700 md:w-auto">
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (activeTab == "notifications")
+            {
+                <!-- Notifications Settings -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Notification Preferences</h3>
+
+                        <!-- Email Notifications -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Email Notifications</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Account Activity</h5>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Get notified about account changes and security events</p>
+                                    </div>
+                                    <label class="relative inline-flex cursor-pointer items-center">
+                                        <input type="checkbox" class="peer sr-only" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Marketing Updates</h5>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Receive news about new features and promotions</p>
+                                    </div>
+                                    <label class="relative inline-flex cursor-pointer items-center">
+                                        <input type="checkbox" class="peer sr-only">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Weekly Reports</h5>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Get weekly summaries of your activity</p>
+                                    </div>
+                                    <label class="relative inline-flex cursor-pointer items-center">
+                                        <input type="checkbox" class="peer sr-only" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Push Notifications -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Push Notifications</h4>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Desktop Notifications</h5>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Show notifications on your desktop</p>
+                                    </div>
+                                    <label class="relative inline-flex cursor-pointer items-center">
+                                        <input type="checkbox" class="peer sr-only" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+
+                                <div class="flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Sound Alerts</h5>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Play sound when receiving notifications</p>
+                                    </div>
+                                    <label class="relative inline-flex cursor-pointer items-center">
+                                        <input type="checkbox" class="peer sr-only">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (activeTab == "security")
+            {
+                <!-- Security Settings -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Security Settings</h3>
+
+                        <!-- Two-Factor Authentication -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Two-Factor Authentication</h4>
+                            <div class="rounded-xl bg-gray-50 p-6 dark:bg-gray-700">
+                                <div class="mb-4 flex items-center justify-between">
+                                    <div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Enable 2FA</h5>
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">Add an extra layer of security to your account</p>
+                                    </div>
+                                    <span class="inline-flex items-center rounded-full bg-green-100 px-3 py-1 text-sm font-medium text-green-800 dark:bg-green-900 dark:text-green-200">
+                                        <svg class="mr-1 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        Enabled
+                                    </span>
+                                </div>
+                                <p class="mb-4 text-sm text-gray-600 dark:text-gray-400">
+                                    Two-factor authentication is currently enabled. Your account is protected with both your password and an authenticator app.
+                                </p>
+                                <button class="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-red-700">
+                                    Disable 2FA
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Login Sessions -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Active Sessions</h4>
+                            <div class="space-y-4">
+                                <div class="rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h5 class="text-sm font-medium text-gray-900 dark:text-white">Current Session</h5>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">Chrome on Windows • New York, USA</p>
+                                            <p class="text-xs text-gray-400 dark:text-gray-500">Started @DateTime.Now.ToString("MMM dd, yyyy 'at' h:mm tt")</p>
+                                        </div>
+                                        <span class="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800 dark:bg-green-900 dark:text-green-200">
+                                            Active
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <h5 class="text-sm font-medium text-gray-900 dark:text-white">Mobile App</h5>
+                                            <p class="text-sm text-gray-500 dark:text-gray-400">iOS App • New York, USA</p>
+                                            <p class="text-xs text-gray-400 dark:text-gray-500">Last active 2 hours ago</p>
+                                        </div>
+                                        <button class="rounded-lg bg-red-600 px-3 py-1 text-xs font-medium text-white transition-colors duration-200 hover:bg-red-700">
+                                            Revoke
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Security Log -->
+                        <div>
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Recent Security Activity</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between rounded-lg bg-gray-50 p-3 dark:bg-gray-700">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 dark:bg-green-900">
+                                            <svg class="h-4 w-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-900 dark:text-white">Successful login</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Chrome on Windows • 2 minutes ago</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between rounded-lg bg-gray-50 p-3 dark:bg-gray-700">
+                                    <div class="flex items-center justify-between space-x-3">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900">
+                                                <svg class="h-4 w-4 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                                </svg>
+                                            </div>
+                                            <div>
+                                                <p class="text-sm font-medium text-gray-900 dark:text-white">Password changed</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">Web • 1 week ago</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (activeTab == "appearance")
+            {
+                <!-- Appearance Settings -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Appearance Settings</h3>
+
+                        <!-- Theme -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Theme</h4>
+                            <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+                                <div class="cursor-pointer rounded-xl border-2 border-gray-200 p-4 transition-colors hover:border-blue-500 dark:border-gray-600 @(theme == "light" ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : "")" @onclick="@(() => SetTheme("light"))">
+                                    <div class="text-center">
+                                        <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-lg border border-gray-300 bg-white">
+                                            <svg class="h-6 w-6 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Light</h5>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Clean and bright</p>
+                                    </div>
+                                </div>
+
+                                <div class="cursor-pointer rounded-xl border-2 border-gray-200 p-4 transition-colors hover:border-blue-500 dark:border-gray-600 @(theme == "dark" ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : "")" @onclick="@(() => SetTheme("dark"))">
+                                    <div class="text-center">
+                                        <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-lg border border-gray-700 bg-gray-900">
+                                            <svg class="h-6 w-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                                            </svg>
+                                        </div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Dark</h5>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Easy on the eyes</p>
+                                    </div>
+                                </div>
+
+                                <div class="cursor-pointer rounded-xl border-2 border-gray-200 p-4 transition-colors hover:border-blue-500 dark:border-gray-600 @(theme == "auto" ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" : "")" @onclick="@(() => SetTheme("auto"))">
+                                    <div class="text-center">
+                                        <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-lg border border-gray-300 bg-gradient-to-r from-white to-gray-900">
+                                            <svg class="h-6 w-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <h5 class="text-sm font-medium text-gray-900 dark:text-white">Auto</h5>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Follow system</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Accent Color -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Accent Color</h4>
+                            <div class="flex space-x-4">
+                                <button class="h-8 w-8 rounded-full border-2 border-white bg-blue-500 shadow-lg @(accentColor == "blue" ? "ring-2 ring-blue-500 ring-offset-2" : "")" @onclick="@(() => SetAccentColor("blue"))" title="Blue"></button>
+                                <button class="h-8 w-8 rounded-full border-2 border-white bg-green-500 shadow-lg @(accentColor == "green" ? "ring-2 ring-green-500 ring-offset-2" : "")" @onclick="@(() => SetAccentColor("green"))" title="Green"></button>
+                                <button class="h-8 w-8 rounded-full border-2 border-white bg-purple-500 shadow-lg @(accentColor == "purple" ? "ring-2 ring-purple-500 ring-offset-2" : "")" @onclick="@(() => SetAccentColor("purple"))" title="Purple"></button>
+                                <button class="h-8 w-8 rounded-full border-2 border-white bg-orange-500 shadow-lg @(accentColor == "orange" ? "ring-2 ring-orange-500 ring-offset-2" : "")" @onclick="@(() => SetAccentColor("orange"))" title="Orange"></button>
+                                <button class="h-8 w-8 rounded-full border-2 border-white bg-red-500 shadow-lg @(accentColor == "red" ? "ring-2 ring-red-500 ring-offset-2" : "")" @onclick="@(() => SetAccentColor("red"))" title="Red"></button>
+                            </div>
+                        </div>
+
+                        <!-- Font Size -->
+                        <div class="mb-8">
+                            <h4 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Font Size</h4>
+                            <div class="flex space-x-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="fontSize" value="small" class="text-blue-600 focus:ring-blue-500" @(fontSize == "small" ? "checked" : "") @onchange="() => SetFontSize('small')">
+                                    <span class="ml-2 text-sm text-gray-700 dark:text-gray-300">Small</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="fontSize" value="medium" class="text-blue-600 focus:ring-blue-500" @(fontSize == "medium" ? "checked" : "") @onchange="() => SetFontSize('medium')">
+                                    <span class="ml-2 text-base text-gray-700 dark:text-gray-300">Medium</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="fontSize" value="large" class="text-blue-600 focus:ring-blue-500" @(fontSize == "large" ? "checked" : "") @onchange="() => SetFontSize('large')">
+                                    <span class="ml-2 text-lg text-gray-700 dark:text-gray-300">Large</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Sidebar Position -->
+                        <div class="flex items-center justify-between rounded-xl bg-gray-50 p-4 dark:bg-gray-700">
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-900 dark:text-white">Sidebar Position</h4>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Choose the position of the sidebar</p>
+                            </div>
+                            <select class="rounded-lg border border-gray-300 bg-white px-3 py-2 text-gray-900 transition-colors focus:border-transparent focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                                <option value="left">Left</option>
+                                <option value="right">Right</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string activeTab = "general";
+    private string theme = "auto";
+    private string accentColor = "blue";
+    private string fontSize = "medium";
+
+    private string GetTabClass(string tabName)
+    {
+        string baseClasses = "flex-1 py-4 px-6 text-center font-medium text-sm transition-colors duration-200";
+        string activeClasses = "text-blue-600 dark:text-blue-400 border-b-2 border-blue-600 dark:border-blue-400 bg-blue-50/50 dark:bg-blue-900/20";
+        string inactiveClasses = "text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700/50";
+
+        return baseClasses + " " + (activeTab == tabName ? activeClasses : inactiveClasses);
+    }
+
+    private void SetActiveTab(string tab)
+    {
+        activeTab = tab;
+    }
+
+    private void SetTheme(string selectedTheme)
+    {
+        theme = selectedTheme;
+        // Here you would typically save to user preferences and apply the theme
+    }
+
+    private void SetAccentColor(string color)
+    {
+        accentColor = color;
+        // Here you would typically save to user preferences and apply the accent color
+    }
+
+    private void SetFontSize(string size)
+    {
+        fontSize = size;
+        // Here you would typically save to user preferences and apply the font size
+    }
+}

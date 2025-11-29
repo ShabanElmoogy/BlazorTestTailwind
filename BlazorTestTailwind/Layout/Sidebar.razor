@@ -1,0 +1,109 @@
+﻿@using BlazorTestTailwind.Components.Sidebar
+@inject NavigationManager NavigationManager
+@implements IDisposable
+
+<!-- Modern Sidebar -->
+<aside class="@(IsCollapsed ? "w-20" : "w-72") sticky top-20 h-screen overflow-hidden border-r border-gray-200/50 bg-white/80 shadow-2xl backdrop-blur-xl transition-all duration-500 dark:border-gray-700/50 dark:bg-gray-900/80">
+    <div class="p-6">
+        <SidebarHeader IsCollapsed="IsCollapsed" OnCollapseToggle="OnCollapseToggle" />
+    </div>
+    
+    <nav class="space-y-2 px-4">
+        <!-- Dashboard -->
+        <div class="space-y-1">
+            <SidebarNavItem Href="/" IconPath='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>' Title="Dashboard" Subtitle="Overview & Analytics" IsSelected="@(IsCurrentPage("/"))" IsCollapsed="IsCollapsed" />
+        </div>
+
+        <!-- Pages with Submenu -->
+        <div class="space-y-1">
+            <SidebarNavMenu IconPath='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>' Title="Pages" Subtitle="Application Pages" IsSelected="@(IsCurrentPage("/counter") || IsCurrentPage("/weather"))" IsOpen="openMenus.Contains(0)" OnToggle="() => ToggleSubmenu(0)" IsCollapsed="IsCollapsed">
+                <ChildContent>
+                    <SidebarSubmenuItem Href="/counter" Title="Counter" IsSelected="@(IsCurrentPage("/counter"))" IsOpen="openSubMenus.Contains(0)" OnToggle="() => ToggleSubSubmenu(0)">
+                        <ChildContent>
+    @*                         <SidebarSubmenuItem Href="/counter/increment" Title="Increment" IsSelected="@(IsCurrentPage("/counter/increment"))" />
+                            <SidebarSubmenuItem Href="/counter/decrement" Title="Decrement" IsSelected="@(IsCurrentPage("/counter/decrement"))" /> *@
+                        </ChildContent>
+                    </SidebarSubmenuItem>
+                    <SidebarSubmenuItem Href="/weather" Title="Weather" IsSelected="@(IsCurrentPage("/weather"))" />
+                </ChildContent>
+            </SidebarNavMenu>
+        </div>
+
+        <!-- Components with Submenu -->
+        <div class="space-y-1">
+            <SidebarNavMenu IconPath='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>' Title="Components" Subtitle="UI Elements" IsSelected="false" IsOpen="openMenus.Contains(1)" OnToggle="() => ToggleSubmenu(1)" IsCollapsed="IsCollapsed" SelectedClasses="bg-gradient-to-r from-purple-500 to-pink-600 text-white" HoverClasses="hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-600 hover:text-white" IconBgNormal="bg-purple-100 dark:bg-purple-900/30 group-hover:bg-white/20" IconColorNormal="text-purple-600 group-hover:text-white">
+                <ChildContent>
+      @*               <SidebarSubmenuItem Href="#" Title="Buttons" IsSelected="false" />
+                    <SidebarSubmenuItem Href="#" Title="Forms" IsSelected="false" />
+                    <SidebarSubmenuItem Href="#" Title="Tables" IsSelected="false" /> *@
+                </ChildContent>
+            </SidebarNavMenu>
+        </div>
+
+        <!-- Analytics -->
+        <div class="space-y-1">
+@*             <SidebarNavItem Href="/analytics" IconPath='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>' Title="Analytics" Subtitle="Reports & Insights" IsSelected="@(IsCurrentPage("/analytics"))" IsCollapsed="IsCollapsed" SelectedClasses="bg-gradient-to-r from-orange-500 to-red-600 text-white" HoverClasses="hover:bg-gradient-to-r hover:from-orange-500 hover:to-red-600 hover:text-white" IconBgNormal="bg-orange-100 dark:bg-orange-900/30 group-hover:bg-white/20" IconColorNormal="text-orange-600 group-hover:text-white" />
+ *@        </div>
+
+        <!-- Settings -->
+        <div class="space-y-1">
+            <SidebarNavItem Href="/settings" IconPath='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>' Title="Settings" Subtitle="Preferences" IsSelected="@(IsCurrentPage("/settings"))" IsCollapsed="IsCollapsed" />
+        </div>
+    </nav>
+
+
+</aside>
+
+<!-- Floating Action Button (when sidebar is collapsed) -->
+<SidebarFloatingButton IsCollapsed="IsCollapsed" />
+
+@code {
+    [Parameter] public bool IsCollapsed { get; set; }
+    [Parameter] public EventCallback<bool> OnCollapseToggle { get; set; }
+    
+    private HashSet<int> openMenus = new();
+    private HashSet<int> openSubMenus = new();
+
+    private void ToggleSubmenu(int menuIndex)
+    {
+        if (openMenus.Contains(menuIndex))
+            openMenus.Remove(menuIndex);
+        else
+            openMenus.Add(menuIndex);
+    }
+
+    private void ToggleSubSubmenu(int subMenuIndex)
+    {
+        if (openSubMenus.Contains(subMenuIndex))
+            openSubMenus.Remove(subMenuIndex);
+        else
+            openSubMenus.Add(subMenuIndex);
+    }
+
+    private async Task HandleCollapseToggle()
+    {
+        await OnCollapseToggle.InvokeAsync(!IsCollapsed);
+    }
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    private bool IsCurrentPage(string path)
+    {
+        var currentPath = "/" + NavigationManager.ToBaseRelativePath(NavigationManager.Uri).TrimEnd('/');
+        if (currentPath == "/") currentPath = "/";
+        return currentPath.Equals(path.TrimEnd('/'), StringComparison.OrdinalIgnoreCase);
+    }
+}

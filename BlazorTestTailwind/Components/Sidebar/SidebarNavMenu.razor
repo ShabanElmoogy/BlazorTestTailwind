@@ -1,0 +1,51 @@
+<button @onclick="HandleToggle" class="group w-full flex items-center @(IsCollapsed ? "justify-center px-3" : "justify-between px-4") py-3 rounded-2xl @(IsSelected ? SelectedClasses : "text-gray-700 dark:text-gray-300") transition-all duration-300 transform hover:scale-105 @HoverClasses hover:shadow-lg">
+    <div class="flex items-center @(IsCollapsed ? "" : "space-x-4")">
+        <div class="@(IsCollapsed ? "" : "w-10 h-10") flex items-center justify-center rounded-xl @(IsSelected ? IconBgSelected : IconBgNormal) transition-all duration-300">
+            <svg class="h-6 w-6 @(IsSelected ? IconColorSelected : IconColorNormal)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                @((MarkupString)IconPath)
+            </svg>
+        </div>
+        @if (!IsCollapsed)
+        {
+            <div class="flex-1 text-left">
+                <span class="font-medium">@Title</span>
+                <p class="text-xs opacity-70">@Subtitle</p>
+            </div>
+        }
+    </div>
+    @if (!IsCollapsed)
+    {
+        <svg class="h-5 w-5 transform @(IsOpen ? "rotate-180" : "") transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    }
+</button>
+
+@if (!IsCollapsed && IsOpen)
+{
+    <div class="animate-in slide-in-from-top-2 mt-2 ml-6 space-y-1">
+        @ChildContent
+    </div>
+}
+
+@code {
+    [Parameter] public string IconPath { get; set; } = "";
+    [Parameter] public string Title { get; set; } = "";
+    [Parameter] public string Subtitle { get; set; } = "";
+    [Parameter] public bool IsSelected { get; set; }
+    [Parameter] public bool IsOpen { get; set; }
+    [Parameter] public EventCallback OnToggle { get; set; }
+    [Parameter] public bool IsCollapsed { get; set; }
+    [Parameter] public string SelectedClasses { get; set; } = "bg-gradient-to-r from-green-500 to-teal-600 text-white";
+    [Parameter] public string HoverClasses { get; set; } = "hover:bg-gradient-to-r hover:from-green-500 hover:to-teal-600 hover:text-white";
+    [Parameter] public string IconBgSelected { get; set; } = "bg-white/20";
+    [Parameter] public string IconBgNormal { get; set; } = "bg-green-100 dark:bg-green-900/30 group-hover:bg-white/20";
+    [Parameter] public string IconColorSelected { get; set; } = "text-white";
+    [Parameter] public string IconColorNormal { get; set; } = "text-green-600 group-hover:text-white";
+    [Parameter] public RenderFragment ChildContent { get; set; }
+
+    private async Task HandleToggle()
+    {
+        await OnToggle.InvokeAsync();
+    }
+}
