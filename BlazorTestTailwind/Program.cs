@@ -15,5 +15,7 @@ builder.Services.AddPWAUpdater();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 builder.Services.AddScoped<ThemeService>();
 builder.Services.AddScoped<DirectionService>();
+builder.Services.AddScoped<ToastService>();
+builder.Services.AddScoped<SweetAlertService>();
 
 await builder.Build().RunAsync();

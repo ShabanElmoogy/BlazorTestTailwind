@@ -14,6 +14,11 @@ namespace BlazorTestTailwind.Services
 
         public bool IsRTL => _isRTL;
 
+        public async Task<bool> IsRtlAsync()
+        {
+            return _isRTL;
+        }
+
         public event Action? OnDirectionChanged;
 
         public async Task InitializeAsync()

@@ -1,0 +1,111 @@
+﻿@page "/sweetalert-examples"
+@inject SweetAlertService SweetAlertService
+@inject ToastService ToastService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>SweetAlert Examples</PageTitle>
+
+<div class="space-y-6">
+    <div class="rounded-lg bg-white p-6 shadow-lg dark:bg-gray-800">
+        <h1 class="mb-4 text-2xl font-bold text-gray-900 dark:text-white">SweetAlert Dialogs</h1>
+        <p class="mb-6 text-gray-600 dark:text-gray-400">Interactive examples of SweetAlert modal dialogs with code snippets.</p>
+        
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <!-- Confirm Dialog -->
+            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                <h3 class="mb-2 font-semibold text-purple-600">Confirm Dialog</h3>
+                <button @onclick="ShowConfirmDialog" class="mb-3 w-full rounded bg-purple-500 px-4 py-2 text-white hover:bg-purple-600">
+                    Show Confirm Dialog
+                </button>
+                <div class="group relative rounded bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                    <code>var result = await SweetAlertService.ShowConfirm("Delete?", "This cannot be undone!");</code>
+                    <button @onclick="@(() => CopyCode("var result = await SweetAlertService.ShowConfirm(\"Delete?\", \"This cannot be undone!\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Success Alert -->
+            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                <h3 class="mb-2 font-semibold text-green-600">Success Alert</h3>
+                <button @onclick="ShowSuccessAlert" class="mb-3 w-full rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600">
+                    Show Success Alert
+                </button>
+                <div class="group relative rounded bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                    <code>await SweetAlertService.ShowSuccess("Success!", "Operation completed!");</code>
+                    <button @onclick="@(() => CopyCode("await SweetAlertService.ShowSuccess(\"Success!\", \"Operation completed!\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Alert -->
+            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                <h3 class="mb-2 font-semibold text-red-600">Error Alert</h3>
+                <button @onclick="ShowErrorAlert" class="mb-3 w-full rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600">
+                    Show Error Alert
+                </button>
+                <div class="group relative rounded bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                    <code>await SweetAlertService.ShowError("Error!", "Something went wrong!");</code>
+                    <button @onclick="@(() => CopyCode("await SweetAlertService.ShowError(\"Error!\", \"Something went wrong!\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Input Dialog -->
+            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                <h3 class="mb-2 font-semibold text-indigo-600">Input Dialog</h3>
+                <button @onclick="ShowInputDialog" class="mb-3 w-full rounded bg-indigo-500 px-4 py-2 text-white hover:bg-indigo-600">
+                    Show Input Dialog
+                </button>
+                <div class="group relative rounded bg-gray-50 p-3 text-sm dark:bg-gray-900">
+                    <code>var input = await SweetAlertService.ShowInput("Enter name", "Your name...");</code>
+                    <button @onclick="@(() => CopyCode("var input = await SweetAlertService.ShowInput(\"Enter name\", \"Your name...\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private async Task ShowConfirmDialog()
+    {
+        var result = await SweetAlertService.ShowConfirm("Are you sure?", "This action cannot be undone!");
+        if (result)
+        {
+            await ToastService.ShowSuccess("Confirmed!");
+        }
+    }
+
+    private async Task ShowSuccessAlert()
+    {
+        await SweetAlertService.ShowSuccess("Success!", "Operation completed successfully!");
+    }
+
+    private async Task ShowErrorAlert()
+    {
+        await SweetAlertService.ShowError("Error!", "Something went wrong. Please try again.");
+    }
+
+    private async Task ShowInputDialog()
+    {
+        var result = await SweetAlertService.ShowInput("Enter your name", "Your name here...");
+        if (!string.IsNullOrEmpty(result))
+        {
+            await ToastService.ShowInfo($"Hello, {result}!");
+        }
+    }
+
+    private async Task CopyCode(string code)
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", code);
+        await ToastService.ShowSuccess("Code copied to clipboard!");
+    }
+}

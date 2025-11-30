@@ -1,0 +1,28 @@
+/* RTL Support for SweetAlert */
+.swal-rtl {
+    direction: rtl !important;
+    text-align: right !important;
+}
+
+.swal-rtl .swal2-title {
+    text-align: right !important;
+}
+
+.swal-rtl .swal2-content {
+    text-align: right !important;
+}
+
+.swal-rtl .swal2-input {
+    text-align: right !important;
+}
+
+.swal-ltr {
+    direction: ltr !important;
+    text-align: left !important;
+}
+
+/* Toastify RTL adjustments */
+.toastify.on.rtl {
+    direction: rtl !important;
+    text-align: right !important;
+}

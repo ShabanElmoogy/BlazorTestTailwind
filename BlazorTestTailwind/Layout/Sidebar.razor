@@ -33,9 +33,8 @@
         <div class="space-y-1">
             <SidebarNavMenu IconPath='<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>' Title="Components" Subtitle="UI Elements" IsSelected="false" IsOpen="openMenus.Contains(1)" OnToggle="() => ToggleSubmenu(1)" IsCollapsed="IsCollapsed" SelectedClasses="bg-gradient-to-r from-purple-500 to-pink-600 text-white" HoverClasses="hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-600 hover:text-white" IconBgNormal="bg-purple-100 dark:bg-purple-900/30 group-hover:bg-white/20" IconColorNormal="text-purple-600 group-hover:text-white">
                 <ChildContent>
-      @*               <SidebarSubmenuItem Href="#" Title="Buttons" IsSelected="false" />
-                    <SidebarSubmenuItem Href="#" Title="Forms" IsSelected="false" />
-                    <SidebarSubmenuItem Href="#" Title="Tables" IsSelected="false" /> *@
+                    <SidebarSubmenuItem Href="/toast-examples" Title="Toast" IsSelected="@(IsCurrentPage("/toast-examples"))" />
+                    <SidebarSubmenuItem Href="/sweetalert-examples" Title="SweetAlert" IsSelected="@(IsCurrentPage("/sweetalert-examples"))" />
                 </ChildContent>
             </SidebarNavMenu>
         </div>

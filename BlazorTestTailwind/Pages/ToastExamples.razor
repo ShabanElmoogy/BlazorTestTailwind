@@ -1,0 +1,102 @@
+@page "/toast-examples"
+@inject ToastService ToastService
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Toast Examples</PageTitle>
+
+<div class="space-y-6">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Toast Notifications</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-6">Interactive examples of toast notifications with code snippets.</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Success Toast -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 class="font-semibold text-green-600 mb-2">Success Toast</h3>
+                <button @onclick="ShowSuccessToast" class="w-full px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 mb-3">
+                    Show Success Toast
+                </button>
+                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded text-sm relative group">
+                    <code>await ToastService.ShowSuccess("Operation completed!");</code>
+                    <button @onclick="@(() => CopyCode("await ToastService.ShowSuccess(\"Operation completed!\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error Toast -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 class="font-semibold text-red-600 mb-2">Error Toast</h3>
+                <button @onclick="ShowErrorToast" class="w-full px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 mb-3">
+                    Show Error Toast
+                </button>
+                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded text-sm relative group">
+                    <code>await ToastService.ShowError("Something went wrong!");</code>
+                    <button @onclick="@(() => CopyCode("await ToastService.ShowError(\"Something went wrong!\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Warning Toast -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 class="font-semibold text-yellow-600 mb-2">Warning Toast</h3>
+                <button @onclick="ShowWarningToast" class="w-full px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 mb-3">
+                    Show Warning Toast
+                </button>
+                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded text-sm relative group">
+                    <code>await ToastService.ShowWarning("Please check your input!");</code>
+                    <button @onclick="@(() => CopyCode("await ToastService.ShowWarning(\"Please check your input!\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Info Toast -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                <h3 class="font-semibold text-blue-600 mb-2">Info Toast</h3>
+                <button @onclick="ShowInfoToast" class="w-full px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mb-3">
+                    Show Info Toast
+                </button>
+                <div class="bg-gray-50 dark:bg-gray-900 p-3 rounded text-sm relative group">
+                    <code>await ToastService.ShowInfo("Here is some info!");</code>
+                    <button @onclick="@(() => CopyCode("await ToastService.ShowInfo(\"Here is some info!\");"))"
+                            class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 text-xs bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 transition-all">
+                        Copy
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private async Task ShowSuccessToast()
+    {
+        await ToastService.ShowSuccess("Operation completed successfully!");
+    }
+
+    private async Task ShowErrorToast()
+    {
+        await ToastService.ShowError("Something went wrong!");
+    }
+
+    private async Task ShowWarningToast()
+    {
+        await ToastService.ShowWarning("Please check your input!");
+    }
+
+    private async Task ShowInfoToast()
+    {
+        await ToastService.ShowInfo("Here is some info!");
+    }
+
+    private async Task CopyCode(string code)
+    {
+        await JSRuntime.InvokeVoidAsync("navigator.clipboard.writeText", code);
+        await ToastService.ShowSuccess("Code copied to clipboard!");
+    }
+}
