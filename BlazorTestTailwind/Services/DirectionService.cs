@@ -16,7 +16,15 @@ namespace BlazorTestTailwind.Services
 
         public async Task<bool> IsRtlAsync()
         {
-            return _isRTL;
+            try
+            {
+                var direction = await _jsRuntime.InvokeAsync<string>("eval", "document.documentElement.dir || localStorage.getItem('direction') || 'ltr'");
+                return direction == "rtl";
+            }
+            catch
+            {
+                return _isRTL;
+            }
         }
 
         public event Action? OnDirectionChanged;
